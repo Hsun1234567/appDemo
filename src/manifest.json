@@ -1,0 +1,154 @@
+{
+    "name" : "智能安全报警器",
+    "appid" : "__UNI__F1BC217",
+    "description" : "基于蓝牙连接的本地化个人安全报警器",
+    "versionName" : "1.0.0",
+    "versionCode" : "100",
+    "transformPx" : false,
+    "app-plus" : {
+        "usingComponents" : true,
+        "nvueStyleCompiler" : "uni-app",
+        "compilerVersion" : 3,
+        "splashscreen" : {
+            "alwaysShowBeforeRender" : true,
+            "waiting" : true,
+            "autoclose" : true,
+            "delay" : 0
+        },
+        "modules" : {
+            "Bluetooth" : {},
+            "SQLite" : {}
+        },
+        "distribute" : {
+            "android" : {
+                "packagename" : "com.safetyalarm.app",
+                "keystore" : "safety-alarm.keystore",
+                "keystoreAlias" : "safety-alarm",
+                "keystorePassword" : "",
+                "targetSdkVersion" : 33,
+                "minSdkVersion" : 23,
+                "abiFilters" : [ "armeabi-v7a", "arm64-v8a" ],
+                "permissions" : [
+                    "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_BACKGROUND_LOCATION\"/>",
+                    "<uses-permission android:name=\"android.permission.BLUETOOTH\"/>",
+                    "<uses-permission android:name=\"android.permission.BLUETOOTH_ADMIN\"/>",
+                    "<uses-permission android:name=\"android.permission.BLUETOOTH_SCAN\"/>",
+                    "<uses-permission android:name=\"android.permission.BLUETOOTH_CONNECT\"/>",
+                    "<uses-permission android:name=\"android.permission.BLUETOOTH_ADVERTISE\"/>",
+                    "<uses-permission android:name=\"android.permission.SEND_SMS\"/>",
+                    "<uses-permission android:name=\"android.permission.READ_SMS\"/>",
+                    "<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
+                    "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.VIBRATE\"/>",
+                    "<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
+                    "<uses-permission android:name=\"android.permission.FOREGROUND_SERVICE\"/>",
+                    "<uses-permission android:name=\"android.permission.POST_NOTIFICATIONS\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>",
+                    "<uses-permission android:name=\"android.permission.READ_EXTERNAL_STORAGE\"/>",
+                    "<uses-feature android:name=\"android.hardware.bluetooth_le\" android:required=\"true\"/>"
+                ]
+            },
+            "ios" : {
+                "dSYMs" : false,
+                "privacyDescription" : {
+                    "NSBluetoothAlwaysUsageDescription" : "该应用需要使用蓝牙连接安全报警器设备，以接收报警信号并管理设备状态。",
+                    "NSBluetoothPeripheralUsageDescription" : "该应用需要使用蓝牙连接安全报警器设备。",
+                    "NSLocationWhenInUseUsageDescription" : "该应用需要获取您的位置信息，以便在报警时将位置发送给紧急联系人。",
+                    "NSLocationAlwaysUsageDescription" : "该应用需要在后台获取您的位置信息，以便在报警触发时自动发送位置给紧急联系人。",
+                    "NSLocationAlwaysAndWhenInUseUsageDescription" : "该应用需要持续获取您的位置信息，以便在报警时将准确位置发送给紧急联系人。",
+                    "NSUserNotificationsUsageDescription" : "该应用需要发送通知，以便在报警触发、设备断连、计时器到期等情况下及时提醒您。"
+                },
+                "UIBackgroundModes" : [ "bluetooth-central", "location" ],
+                "bundleId" : "com.safetyalarm.app"
+            },
+            "sdkConfigs" : {
+                "ad" : {}
+            },
+            "icons" : {
+                "android" : {
+                    "hdpi" : "",
+                    "xhdpi" : "",
+                    "xxhdpi" : "",
+                    "xxxhdpi" : ""
+                },
+                "ios" : {
+                    "appstore" : "",
+                    "ipad" : {
+                        "app" : "",
+                        "app@2x" : "",
+                        "notification" : "",
+                        "notification@2x" : "",
+                        "proapp@2x" : "",
+                        "settings" : "",
+                        "settings@2x" : "",
+                        "spotlight" : "",
+                        "spotlight@2x" : ""
+                    },
+                    "iphone" : {
+                        "app@2x" : "",
+                        "app@3x" : "",
+                        "notification@2x" : "",
+                        "notification@3x" : "",
+                        "settings@2x" : "",
+                        "settings@3x" : "",
+                        "spotlight@2x" : "",
+                        "spotlight@3x" : ""
+                    }
+                }
+            },
+            "splashscreen" : {
+                "android" : {
+                    "hdpi" : "static/splash/android/splash-480x800.png",
+                    "xhdpi" : "static/splash/android/splash-720x1280.png",
+                    "xxhdpi" : "static/splash/android/splash-1080x1920.png"
+                },
+                "ios" : {
+                    "storyboard" : "static/splash/ios/LaunchScreen.storyboard",
+                    "iphone" : {
+                        "default" : "static/splash/ios/splash-375x667.png",
+                        "iphonex" : "static/splash/ios/splash-375x812.png"
+                    },
+                    "ipad" : {
+                        "default" : "static/splash/ios/splash-768x1024.png",
+                        "retina" : "static/splash/ios/splash-1536x2048.png"
+                    }
+                }
+            }
+        }
+    },
+    "quickapp" : {},
+    "mp-weixin" : {
+        "appid" : "",
+        "setting" : {
+            "urlCheck" : false
+        },
+        "usingComponents" : true
+    },
+    "mp-alipay" : {
+        "usingComponents" : true
+    },
+    "mp-baidu" : {
+        "usingComponents" : true
+    },
+    "mp-toutiao" : {
+        "usingComponents" : true
+    },
+    "uniStatistics" : {
+        "enable" : false
+    },
+    "vueVersion" : "3",
+    "h5" : {
+        "title" : "智能安全报警器",
+        "router" : {
+            "mode" : "hash"
+        },
+        "devServer" : {
+            "port" : 5173
+        }
+    }
+}
