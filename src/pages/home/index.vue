@@ -2,22 +2,19 @@
   <view class="home-page">
     <!-- 页面标题 -->
     <view class="page-header">
-      <text class="page-title">{{ $t("home.title") }}</text>
+      <text class="page-title">{{ t('home.title') }}</text>
     </view>
 
     <!-- 设备状态卡片 -->
     <view class="card device-card">
-      <text class="card-title">{{ $t("home.deviceStatus") }}</text>
+      <text class="card-title">{{ t('home.deviceStatus') }}</text>
       <view v-if="primaryDevice" class="device-info">
         <view class="status-row">
           <view class="status-dot" :class="connectionClass" />
           <text class="status-text">{{ connectionLabel }}</text>
         </view>
         <view
-          v-if="
-            deviceState?.connectionState === 'connected' &&
-            deviceState.battery >= 0
-          "
+          v-if="deviceState?.connectionState === 'connected' && deviceState.battery >= 0"
           class="battery-row"
         >
           <text class="battery-icon">🔋</text>
@@ -25,13 +22,13 @@
         </view>
       </view>
       <view v-else class="no-device">
-        <text class="no-device-text">{{ $t("home.noDevice") }}</text>
+        <text class="no-device-text">{{ t('home.noDevice') }}</text>
       </view>
     </view>
 
     <!-- 当前报警模式 -->
     <view class="card mode-card">
-      <text class="card-title">{{ $t("home.currentMode") }}</text>
+      <text class="card-title">{{ t('home.currentMode') }}</text>
       <view class="mode-display">
         <text class="mode-name">{{ modeLabel }}</text>
       </view>
@@ -40,39 +37,33 @@
     <!-- SOS 按钮 - H5 端隐藏 -->
     <PlatformGuard platform="app">
       <view class="sos-section">
-        <button
-          class="sos-button"
-          :disabled="alarmStore.isAlarming"
-          @tap="onSOSTap"
-        >
-          <text class="sos-text">{{ $t("home.sosButton") }}</text>
+        <button class="sos-button" :disabled="alarmStore.isAlarming" @tap="onSOSTap">
+          <text class="sos-text">{{ t('home.sosButton') }}</text>
         </button>
       </view>
     </PlatformGuard>
 
     <!-- 安全计时器状态 -->
     <view class="card timer-card">
-      <text class="card-title">{{ $t("home.safetyTimer") }}</text>
+      <text class="card-title">{{ t('home.safetyTimer') }}</text>
       <view v-if="utilityStore.timerState.isRunning" class="timer-running">
-        <text class="timer-label">{{ $t("home.timerRunning") }}</text>
-        <text class="timer-remaining">{{
-          utilityStore.formattedRemaining
-        }}</text>
+        <text class="timer-label">{{ t('home.timerRunning') }}</text>
+        <text class="timer-remaining">{{ utilityStore.formattedRemaining }}</text>
       </view>
       <view v-else class="timer-idle">
-        <text class="timer-idle-text">{{ $t("home.timerNotRunning") }}</text>
+        <text class="timer-idle-text">{{ t('home.timerNotRunning') }}</text>
       </view>
     </view>
 
     <!-- 快捷操作 -->
     <view class="card actions-card">
-      <text class="card-title">{{ $t("home.quickActions") }}</text>
+      <text class="card-title">{{ t('home.quickActions') }}</text>
       <view class="actions-row">
         <button class="action-btn" @tap="onStartTimer">
-          <text class="action-text">{{ $t("home.startTimer") }}</text>
+          <text class="action-text">{{ t('home.startTimer') }}</text>
         </button>
         <button class="action-btn" @tap="onFakeCall">
-          <text class="action-text">{{ $t("home.fakeCall") }}</text>
+          <text class="action-text">{{ t('home.fakeCall') }}</text>
         </button>
       </view>
     </view>
@@ -80,93 +71,93 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
-import { useI18n } from "vue-i18n";
-import { useDeviceStore } from "@/stores/device.store";
-import { useSafetyStore } from "@/stores/safety.store";
-import { useAlarmStore } from "@/stores/alarm.store";
-import { useUtilityStore } from "@/stores/utility.store";
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useDeviceStore } from '@/stores/device.store'
+import { useSafetyStore } from '@/stores/safety.store'
+import { useAlarmStore } from '@/stores/alarm.store'
+import { useUtilityStore } from '@/stores/utility.store'
 // @ts-ignore - Vue SFC module
-import PlatformGuard from "@/components/PlatformGuard.vue";
+import PlatformGuard from '@/components/PlatformGuard.vue'
 
-const { t } = useI18n();
+const { t } = useI18n()
 
-const deviceStore = useDeviceStore();
-const safetyStore = useSafetyStore();
-const alarmStore = useAlarmStore();
-const utilityStore = useUtilityStore();
+const deviceStore = useDeviceStore()
+const safetyStore = useSafetyStore()
+const alarmStore = useAlarmStore()
+const utilityStore = useUtilityStore()
 
 /** First paired device (primary) */
-const primaryDevice = computed(() => deviceStore.pairedDevices[0] ?? null);
+const primaryDevice = computed(() => deviceStore.pairedDevices[0] ?? null)
 
 /** Runtime state for primary device */
 const deviceState = computed(() => {
-  if (!primaryDevice.value) return null;
-  return deviceStore.getRuntimeState(primaryDevice.value.deviceId) ?? null;
-});
+  if (!primaryDevice.value) return null
+  return deviceStore.getRuntimeState(primaryDevice.value.deviceId) ?? null
+})
 
 /** Connection status CSS class */
 const connectionClass = computed(() => {
-  const state = deviceState.value?.connectionState ?? "disconnected";
-  return `status-${state}`;
-});
+  const state = deviceState.value?.connectionState ?? 'disconnected'
+  return `status-${state}`
+})
 
 /** Connection status label */
 const connectionLabel = computed(() => {
-  const state = deviceState.value?.connectionState ?? "disconnected";
-  if (state === "connected") return t("home.connected");
-  if (state === "connecting") return t("home.connecting");
-  return t("home.disconnected");
-});
+  const state = deviceState.value?.connectionState ?? 'disconnected'
+  if (state === 'connected') return t('home.connected')
+  if (state === 'connecting') return t('home.connecting')
+  return t('home.disconnected')
+})
 
 /** Current alarm mode display label */
 const modeLabel = computed(() => {
-  const mode = safetyStore.alarmMode;
-  return t(`alarmMode.${mode}`);
-});
+  const mode = safetyStore.alarmMode
+  return t(`alarmMode.${mode}`)
+})
 
 /** SOS button tap handler */
 function onSOSTap() {
   uni.showModal({
-    title: t("dialogs.alarmTitle"),
-    content: t("home.sosConfirm"),
+    title: t('dialogs.alarmTitle'),
+    content: t('home.sosConfirm'),
     success: (res) => {
       if (res.confirm) {
-        triggerSOS();
+        triggerSOS()
       }
     },
-  });
+  })
 }
 
 /** Execute SOS alarm */
 async function triggerSOS() {
-  const check = safetyStore.canEnableAlarm();
+  const check = safetyStore.canEnableAlarm()
   if (!check.enabled) {
-    uni.showToast({ title: check.message, icon: "none" });
-    return;
+    uni.showToast({ title: check.message, icon: 'none' })
+    return
   }
   try {
-    await alarmStore.executeAlarmResponse("sos-manual");
-    uni.showToast({ title: t("common.success"), icon: "success" });
+    await alarmStore.executeAlarmResponse('sos-manual')
+    uni.showToast({ title: t('common.success'), icon: 'success' })
   } catch {
-    uni.showToast({ title: t("common.error"), icon: "none" });
+    uni.showToast({ title: t('common.error'), icon: 'none' })
   }
 }
 
 /** Navigate to start timer (settings page timer section) */
 function onStartTimer() {
   if (utilityStore.timerState.isRunning) {
-    uni.showToast({ title: t("home.timerRunning"), icon: "none" });
-    return;
+    uni.showToast({ title: t('home.timerRunning'), icon: 'none' })
+    return
   }
   // Start a default 15-minute timer
-  utilityStore.startTimer(15 * 60 * 1000);
-  uni.showToast({ title: t("settings.timerStarted"), icon: "success" });
+  utilityStore.startTimer(15 * 60 * 1000)
+  uni.showToast({ title: t('settings.timerStarted'), icon: 'success' })
 }
 
 /** Trigger fake call */
 function onFakeCall() {
-  utilityStore.triggerFakeCall();
+  utilityStore.triggerFakeCall()
 }
 </script>
 

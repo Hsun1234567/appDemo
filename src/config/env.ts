@@ -31,13 +31,12 @@ export interface EnvConfig {
  */
 function resolveConfig(): EnvConfig {
   const isProd = process.env.NODE_ENV === 'production'
-  const viteEnv = typeof import.meta !== 'undefined' ? (import.meta as any).env ?? {} : {}
 
   return {
     mode: isProd ? 'production' : 'development',
-    apiBaseUrl: viteEnv.VITE_API_BASE_URL ?? (isProd ? 'https://api.example.com' : 'http://localhost:3000/api'),
-    logLevel: (viteEnv.VITE_LOG_LEVEL as LogLevel) ?? (isProd ? 'warn' : 'debug'),
-    debug: viteEnv.VITE_ENABLE_DEBUG === 'true' || (!isProd && viteEnv.VITE_ENABLE_DEBUG !== 'false'),
+    apiBaseUrl: process.env.VITE_API_BASE_URL ?? (isProd ? 'https://api.example.com' : 'http://localhost:3000/api'),
+    logLevel: (process.env.VITE_LOG_LEVEL as LogLevel) ?? (isProd ? 'warn' : 'debug'),
+    debug: process.env.VITE_ENABLE_DEBUG === 'true' || (!isProd && process.env.VITE_ENABLE_DEBUG !== 'false'),
     appVersion: typeof __APP_VERSION__ === 'string' ? __APP_VERSION__ : '0.0.0',
     bleScanTimeout: 30000,
     batteryPollInterval: 60000,
